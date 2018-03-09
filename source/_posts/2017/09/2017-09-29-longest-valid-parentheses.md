@@ -21,17 +21,17 @@ tags: [leetcode]
 
 ### 经典问题：钢条切割
 
-钢条切割问题是：给定一段长度为 $$n$$ 英寸的钢条和一个价格表 $$p_i (i=1, 2, \ldots, n)$$，求切割钢条的方案，使得销售收益 $$r_n$$ 最大。
+钢条切割问题是：给定一段长度为 $n$ 英寸的钢条和一个价格表 $p_i (i=1, 2, \ldots, n)$，求切割钢条的方案，使得销售收益 $r_n$ 最大。
 
 #### 递归实现
 
-考虑一般情况，对于 $$r_n (n \geqslant 1)$$，我们用 _更短的钢条的最优切割收益_ 描述：
+考虑一般情况，对于 $r_n (n \geqslant 1)$，我们用 _更短的钢条的最优切割收益_ 描述：
 
 $$r_n = {\rm max}(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, \ldots, r_{n-1} + r_1)$$
 
 这就是钢条切割问题的 **最优子结构** 性质：问题的最优解由相关子问题的最优解组合而成，而这些子问题可以独立求解。
 
-至此，我们可以根据公式 $$r_n = \underset{1 \leqslant i \leqslant n}{max}(p_i + r_{n-i})$$ 实现一个 **自顶向下的递归实现**。下图所示的递归调用树显示了 $$n=4$$ 时，这样实现的递归函数的调用过程。由此可见，该递归函数的运行时间为 $$n$$ 的指数函数。
+至此，我们可以根据公式 $r_n = \underset{1 \leqslant i \leqslant n}{max}(p_i + r_{n-i})$ 实现一个 **自顶向下的递归实现**。下图所示的递归调用树显示了 $n=4$ 时，这样实现的递归函数的调用过程。由此可见，该递归函数的运行时间为 $n$ 的指数函数。
 
 <div align="center"><img src="{{ site.baseurl }}/images/2017/10/rod-cutting-recursive.png" width="50%"></div>
 
@@ -52,13 +52,13 @@ $$r_n = {\rm max}(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, \ldots, r_{n-1} + r_1)$$
 
 <div align="center"><img src="{{ site.baseurl }}/images/2017/10/rod-cutting-bottom-up.png" width="40%"></div>
 
-上述的求解过程依次求解规模为 $$j=1, 2, \ldots, n$$ 的子问题。
+上述的求解过程依次求解规模为 $j=1, 2, \ldots, n$ 的子问题。
 
-两种方法具有相同的渐进运行时间—— $$\Theta(n^2)$$。不过，自底向上方法的时间复杂性函数通常具有更小的系数。
+两种方法具有相同的渐进运行时间—— $\Theta(n^2)$。不过，自底向上方法的时间复杂性函数通常具有更小的系数。
 
 ##### 子问题图
 
-思考动态规划问题时，应该弄清涉及的子问题之间的依赖关系。下图是 $$n=4$$ 时钢条切割问题的 **子问题图**。
+思考动态规划问题时，应该弄清涉及的子问题之间的依赖关系。下图是 $n=4$ 时钢条切割问题的 **子问题图**。
 
 <div align="center"><img src="{{ site.baseurl }}/images/2017/10/rod-cutting-subproblem-graph.png" width="20%"></div>
 
@@ -66,7 +66,7 @@ $$r_n = {\rm max}(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, \ldots, r_{n-1} + r_1)$$
 
 <div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/IRwVmTmN6go" frameborder="0" allowfullscreen></iframe></div>
 
-他列出了一个 $$m \times n$$ 的表格。这个表格中，第 $$i$$ 行第 $$j$$ 列（$$i=1, 2, \ldots, m；j=0, 1, 2, \ldots, n$$）表示：**将长度为 $$j$$ 的钢条（仅）使用 $$1, 2, \ldots, i$$ 长度切割（可能不包括每种长度）时所能取得的最优收益**。那么，计算到第 $$m$$ 行第 $$n$$ 列时就求得结果了。注意第 $$0$$ 列是为了便于下面的求解公式计算）。
+他列出了一个 $m \times n$ 的表格。这个表格中，第 $i$ 行第 $j$ 列（$i=1, 2, \ldots, m；j=0, 1, 2, \ldots, n$）表示：**将长度为 $j$ 的钢条（仅）使用 $1, 2, \ldots, i$ 长度切割（可能不包括每种长度）时所能取得的最优收益**。那么，计算到第 $m$ 行第 $n$ 列时就求得结果了。注意第 $0$ 列是为了便于下面的求解公式计算）。
 
 这个行列的设定非常精妙，需要好好琢磨。
 
@@ -74,7 +74,7 @@ $$r_n = {\rm max}(p_n, r_1 + r_{n-1}, r_2 + r_{n-2}, \ldots, r_{n-1} + r_1)$$
 
 $$
 T[i, j] = \begin{cases}
-{\rm max}(T[i-1, j], p_i+T[i, j-i]) & \text{ if } j \geqslant  1 \\
+{\rm max}(T[i-1, j], p_i+T[i, j-i]) & \text{ if } j \geqslant  1 \\\\
 T[i-1, j] & \text{ otherwise }
 \end{cases}
 $$
@@ -98,20 +98,20 @@ Another example is <code>")()())"</code>, where the longest valid parentheses su
 
 基于前一节对动态规划的分析，只要求解出这道题的递归公式就可以了。
 
-首先，定义一个一维数组`L[n]`，`L[i]`记录 **在第i位为结尾的最长有效子串的长度**。`L[n]`每一项初始化为 $$0$$。这样，就可以通过扫描一遍数组，在求得`L[n]`后，通过遍历`L[n]`（或在过程中记录）得到最优解。事实上，在遍历时我们只需检查`s[n] == ')'`的情况，因为`s[n] == '('`时条件总不会满足。
+首先，定义一个一维数组`L[n]`，`L[i]`记录 **在第i位为结尾的最长有效子串的长度**。`L[n]`每一项初始化为 $0$。这样，就可以通过扫描一遍数组，在求得`L[n]`后，通过遍历`L[n]`（或在过程中记录）得到最优解。事实上，在遍历时我们只需检查`s[n] == ')'`的情况，因为`s[n] == '('`时条件总不会满足。
 
-这个算法的运行时间为 $$O(n)$$，思路是：
+这个算法的运行时间为 $O(n)$，思路是：
 
 $$
 L[i] = \begin{cases}
-L[i-2] + 2 & \text{ if } s[i] = ')', s[i-1] = '(' \\
-L[i-1] + 2 + L[i - L[i-1] - 2] & \text{ if } s[i] = ')', s[i-1] = ')', s[i - L[i-1] - 1] = '(' \\
+L[i-2] + 2 & \text{ if } s[i] = ')', s[i-1] = '(' \\\\
+L[i-1] + 2 + L[i - L[i-1] - 2] & \text{ if } s[i] = ')', s[i-1] = ')', s[i - L[i-1] - 1] = '(' \\\\
 0 & \text{ otherwise }
 \end{cases}
 $$
 
 > 注意：<br>
-> 1. $$i - L[i - 1] - 1 \leqslant 0$$ 属于其他情况。<br>
+> 1. $i - L[i - 1] - 1 \leqslant 0$ 属于其他情况。<br>
 > 2. 满足第二种情况时，字符串形式为：`"..*(....))"`，`*`后的`'('` _必然_ 与`i - 1`位的`')'`匹配。因此，检查`i - L[i - 1] - 1`位（即`*`所示位置）是否为`'('`，如果是，则完成了与`i`位`')'`的匹配。需要再加上`L[i - L[i - 1] - 2]`。
 
 LeetCode 在该题的解答中给出了<a href="https://leetcode.com/articles/longest-valid-parentheses/#approach-2-using-dynamic-programming-accepted">较为简洁的代码</a>：
@@ -168,7 +168,7 @@ result = Integer.max(currentIndex, result);
 
 #### 不需要额外空间的算法
 
-LeetCode 还提供了一种空间复杂度为 $$O(1)$$ ，时间复杂度为 $$O(n)$$ 的<a href="https://leetcode.com/articles/longest-valid-parentheses/#approach-4-without-extra-space-accepted">算法</a>。通过维护两个变量`left`和`right`，分别左右遍历一次，就可求得最优解。思路如下：
+LeetCode 还提供了一种空间复杂度为 $O(1)$ ，时间复杂度为 $O(n)$ 的<a href="https://leetcode.com/articles/longest-valid-parentheses/#approach-4-without-extra-space-accepted">算法</a>。通过维护两个变量`left`和`right`，分别左右遍历一次，就可求得最优解。思路如下：
 
 1. 初始化`left`和`right`为0。
 2. 首先从左至右地遍历每一个字符，如果遇到`'('`，则`left`自增1；如果遇到`')'`，则`'right'`自增1。

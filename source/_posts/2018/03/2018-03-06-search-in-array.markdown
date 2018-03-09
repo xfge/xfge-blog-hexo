@@ -9,9 +9,9 @@ tags: [leetcode]
 
 [Search in Rotated Sorted Array - LeetCode](https://leetcode.com/problems/search-in-rotated-sorted-array/description/)
 
-> Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand. <br>
-> (i.e., `0 1 2 4 5 6 7` might become `4 5 6 7 0 1 2`).<br>
-> You are given a target value to search. If found in the array return its index, otherwise return -1.<br>
+> Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+> (i.e., `0 1 2 4 5 6 7` might become `4 5 6 7 0 1 2`).
+> You are given a target value to search. If found in the array return its index, otherwise return -1.
 > You may assume no duplicate exists in the array.
 
 这道搜索问题直接求解的话思路应该是：先用 O(n) 时间复杂度的遍历找到 **转折点**，然后两边分别应用二分查找法。这样，算法复杂度是 O(n)，而二分查找法 O(log n) 的优势没有发挥出来。

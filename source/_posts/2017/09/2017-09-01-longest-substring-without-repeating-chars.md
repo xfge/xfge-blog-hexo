@@ -1,18 +1,19 @@
 ---
 layout: post
 title: "[LC3] Longest Substring Without Repeating Characters"
+date: 2017-09-01
 tags: [leetcode]
 ---
 
 [Longest Substring Without Repeating Characters - LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 
-> Given a string, find the length of the longest substring without repeating characters.<br>
->Examples:<br>
->Given `"abcabcbb"`, the answer is `"abc"`, which the length is 3.<br>
->Given `"bbbbb"`, the answer is `"b"`, with the length of 1.<br>
+> Given a string, find the length of the longest substring without repeating characters.
+>Examples:
+>Given `"abcabcbb"`, the answer is `"abc"`, which the length is 3.
+>Given `"bbbbb"`, the answer is `"b"`, with the length of 1.
 >Given `"pwwkew"`, the answer is `"wke"`, with the length of 3. Note that the answer must be a **substring**, `"pwke"` is a subsequence and not a substring.
 
-## 直觉上的解法 [Accepted]
+## 直觉上的解法 [AC]
 
 LeetCode的第三题，看到题目后首先想到的解法是通过一个整型数组`index[]`来表示 **当前位置往前数不含重复字符的最长字符串（LSWRC）中每个字符所在的位置**。从首个字符开始遍历，同时保存当前LSWRC长度以比较。最终输出LSWRC长度。
 
@@ -20,9 +21,9 @@ LeetCode的第三题，看到题目后首先想到的解法是通过一个整型
 
 ## 过程优化
 
-提交实现上述算法的代码运行结果超越了90%用户，但其时间复杂度应为 $$O(n^2)$$。如前所述，它嵌套了一层循环（重新赋值）。
+提交实现上述算法的代码运行结果超越了90%用户，但其时间复杂度应为 $O(n^2)$。如前所述，它嵌套了一层循环（重新赋值）。
 
-[11-line simple Java solution, O(n) with explanation](https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/1729/11-line-simple-Java-solution-O(n)-with-explanation) 中给出了一种时间复杂度为 $$O(n)$$ 的简化算法：
+[11-line simple Java solution, O(n) with explanation](https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/1729/11-line-simple-Java-solution-O(n)-with-explanation) 中给出了一种时间复杂度为 $O(n)$ 的简化算法：
 
 ```java
 public int lengthOfLongestSubstring(String s) {
