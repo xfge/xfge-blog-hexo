@@ -2,7 +2,10 @@
 layout: post
 title: "[LC32] Longest Valid Parentheses / 动态规划"
 date: 2017-09-29
-tags: [leetcode]
+tags: [leetcode, 动态规划]
+categories:
+  - CS
+  - LeetCode
 ---
 
 <a href="https://leetcode.com/problems/longest-valid-parentheses/">Longest Valid Parentheses - LeetCode</a>

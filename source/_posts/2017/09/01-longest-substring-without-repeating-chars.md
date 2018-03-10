@@ -3,6 +3,9 @@ layout: post
 title: "[LC3] Longest Substring Without Repeating Characters"
 date: 2017-09-01
 tags: [leetcode]
+categories:
+  - CS
+  - LeetCode
 ---
 
 [Longest Substring Without Repeating Characters - LeetCode](https://leetcode.com/problems/longest-substring-without-repeating-characters/)

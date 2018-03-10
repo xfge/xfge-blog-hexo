@@ -2,7 +2,10 @@
 layout: "post"
 title: "[LC33-35] Search in Array / 二分查找法"
 date: 2018-03-06
-tags: [leetcode]
+tags: [leetcode, 二分查找]
+categories:
+  - CS
+  - LeetCode
 ---
 
 # 33 Search in Rotated Sorted Array

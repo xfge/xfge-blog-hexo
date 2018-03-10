@@ -2,7 +2,10 @@
 layout: post
 title: "[LC5/9] Palindrome Problems / 动态规划"
 date: 2017-09-02
-tags: [leetcode]
+tags: [leetcode, 动态规划]
+categories:
+  - CS
+  - LeetCode
 ---
 
 # 9 Palindrome Number
@@ -110,7 +113,7 @@ $$
 
 这样就实现了一个时间复杂度和空间复杂度均为 $O(n^2)$ 的动态规划方法。
 
-### 代码实现[AC]
+### 代码实现
 
 在实现时，考虑如何绘制动态规划表格：
 1. **动态规划表格** 的第一维是指子字符串起始位置，第二维是指终止位置，所存布尔型数据表示是否回文；
@@ -181,14 +184,13 @@ private int expandAroundCenter(String s, int left, int right) {
 关于这个算法找了很多资料学习，发现了[一篇比较好的文章](https://segmentfault.com/a/1190000003914228)。将其摘录下来。
 
 先来看看中心扩散法存在的缺陷。
-
 1. 由于回文串长度的奇偶性造成了不同性质的对称轴位置，算法要对两种情况分别处理；
 2. 很多子串被重复多次访问，造成较差的时间效率。例如：
-```
-char: a b a b a
-  i : 0 1 2 3 4
-```
-当i==1，和i==2时，左边的子串aba分别被遍历了一次。
+  ```
+  char: a b a b a
+    i : 0 1 2 3 4
+  ```
+  当`i==1`和`i==2`时，左边的子串aba分别被遍历了一次。
 
 Manacher正是针对这些问题改进算法。
 
