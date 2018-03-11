@@ -120,6 +120,8 @@ $$
 
 <img src="/images/2017/10/regular-expression-matching-dp-table.png" width="40%">
 
+值得一提的是，表格中第0列均为False，但第0行是不一定均为False的，因为空串与`"a*b*"`也是匹配的！
+
 ### 代码实现
 
 ```java
