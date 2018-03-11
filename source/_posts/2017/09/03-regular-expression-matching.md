@@ -2,7 +2,7 @@
 layout: post
 title: "[LC10] Regular Expression Matching / 递归 / 动态规划"
 date: 2017-09-03
-tags: [LeetCode, 递归, 动态规划, 字符串]
+tags: [leetcode, 递归, 动态规划, 字符串]
 categories:
   - CS
   - LeetCode

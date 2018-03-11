@@ -2,7 +2,7 @@
 layout: post
 title: "[LC14] Longest Common Prefix"
 date: 2017-09-05
-tags: [LeetCode, 字符串, 二分查找, 分治]
+tags: [leetcode, 字符串, 二分查找, 分治]
 categories:
   - CS
   - LeetCode

@@ -3,6 +3,9 @@ layout: post
 title: "重新安装 macOS 的配置"
 date: 2017-10-11
 tags: [macos]
+categories:
+  - 日常
+  - 备忘
 ---
 
 ## 清单

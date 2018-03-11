@@ -2,7 +2,7 @@
 layout: post
 title: "[LC11] Container With Most Water"
 date: 2017-09-04
-tags: [LeetCode, 双指针]
+tags: [leetcode, 双指针]
 categories:
   - CS
   - LeetCode
