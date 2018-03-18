@@ -8,6 +8,10 @@ categories:
   - LeetCode
 ---
 
+本篇探讨二分查找法在数组检索中的应用。
+
+<!-- more -->
+
 # 33 Search in Rotated Sorted Array
 
 [Search in Rotated Sorted Array - LeetCode](https://leetcode.com/problems/search-in-rotated-sorted-array/description/)
@@ -16,6 +20,7 @@ categories:
 > (i.e., `0 1 2 4 5 6 7` might become `4 5 6 7 0 1 2`).
 > You are given a target value to search. If found in the array return its index, otherwise return -1.
 > You may assume no duplicate exists in the array.
+
 
 这道搜索问题直接求解的话思路应该是：先用 O(n) 时间复杂度的遍历找到 **转折点**，然后两边分别应用二分查找法。这样，算法复杂度是 O(n)，而二分查找法 O(log n) 的优势没有发挥出来。
 
@@ -148,9 +153,6 @@ case 7: [6 7] (target < A[i] < A[j])
 时，赋值语句`i = mid`不起作用，范围不再收缩。
 
 解决方法是微调`mid`的赋值语句（额外加1），使得每次计算中值 **往右取整**，即：`mid = (i+j)/2+1`。这样，我们能够在每一次迭代时，进一步收缩范围（每次通过`i = mid`设置`i`的新值时都能 **使其改变**）。同样地，考虑计算「起始点」的过程，每次通过`j = mid`设置`j`的新值时，`j`必定发生变化使范围缩小。这就是为`mid`额外加1的目的。
-
-
-
 
 
 # 35 Search Insert Position

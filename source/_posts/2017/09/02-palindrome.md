@@ -8,6 +8,10 @@ categories:
   - LeetCode
 ---
 
+第5题和第9题都与「回文字符串」有关，且用到了经典的「动态规划」方法。在「最长回文串」问题中，Manacher 算法是一种技巧性极高的经典方法。
+
+<!-- more -->
+
 # 9 Palindrome Number
 
 [Palindrome Number - LeetCode](https://leetcode.com/problems/palindrome-number/description/)

@@ -12,6 +12,8 @@ categories:
 
 > Write a function to find the longest common prefix string amongst an array of strings.
 
+<!-- more -->
+
 这道题标签是Easy，也很容易就AC了，但看了一眼解答发现题虽简单，方法却是多种多样，几乎是把好几种经典算法都用上了。虽然时间复杂度没有什么区别和提升，但通过这道题能够复习一下这些经典方法也很值得。
 
 ## 1 水平扫描

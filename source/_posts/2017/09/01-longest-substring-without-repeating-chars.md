@@ -16,6 +16,8 @@ categories:
 >Given `"bbbbb"`, the answer is `"b"`, with the length of 1.
 >Given `"pwwkew"`, the answer is `"wke"`, with the length of 3. Note that the answer must be a **substring**, `"pwke"` is a subsequence and not a substring.
 
+<!-- more -->
+
 ## 直觉上的解法 [AC]
 
 LeetCode的第三题，看到题目后首先想到的解法是通过一个整型数组`index[]`来表示 **当前位置往前数不含重复字符的最长字符串（LSWRC）中每个字符所在的位置**。从首个字符开始遍历，同时保存当前LSWRC长度以比较。最终输出LSWRC长度。

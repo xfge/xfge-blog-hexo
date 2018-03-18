@@ -8,24 +8,21 @@ categories:
   - 备忘
 ---
 
-## 清单
+本篇文章介绍了每次抹掉系统并重新安装 macOS 必要的恢复操作。这些工作容易遗忘，所以记下来。
 
-- iTerm2 + oh-my-zsh
-- Java 及其配置
-- Latex + Atom
-- Aria2GUI
-- GitHub Pages
-- Maven 及其配置
-- 其他
-
-
-## 细节
+<!-- more -->
 
 ### iTerm2 + oh-my-zsh
 
-1. 安装 [Homebrew](https://brew.sh)。
-2. 安装 iTerm2 和 Oh My Zsh 参考 [iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】 - 简书](http://www.jianshu.com/p/7de00c73a2bb)。
-3. 语法高亮和自动提示参考 [Mac下终端配置（item2 + oh-my-zsh + solarized配色方案） - 希希里之海 - 博客园](http://www.cnblogs.com/weixuqin/p/7029177.html)。
+1. 安装 [Homebrew](https://brew.sh) 和 iTerm2。
+3. 通过指令安装 Oh My Zsh。
+  `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+4. 设置主题为 `af-magic`。
+5. 通过 Homebrew 安装插件：
+  `brew install zsh-syntax-highlighting`
+  `brew install zsh-autosuggestions`
+
+> 参考 [iTerm 2 && Oh My Zsh【DIY教程——亲身体验过程】 - 简书](http://www.jianshu.com/p/7de00c73a2bb) 和 [Mac下终端配置（item2 + oh-my-zsh + solarized配色方案） - 希希里之海 - 博客园](http://www.cnblogs.com/weixuqin/p/7029177.html)。
 
 
 ### Java 及其配置
@@ -53,50 +50,27 @@ categories:
   - latex
   - language-latex
   - pdf-view
-3. 通常无需特殊配置即可使用。
-4. 用这个 tex 文档测试编译（⌃⌥B）。
-
-    ```
-    \documentclass[UTF8]{article}
-    \author {Author}
-    \title {Title}
-    \usepackage{ctex}
-    \usepackage{amsmath}
-    \usepackage{amssymb}
-    \begin{document}
-    \maketitle
-    \section{First section} test1.
-        \subsection{First subsection} test2.
-            \subsubsection{First double subsection}
-                \paragraph{Fist paragraph} test3.
-                    \subparagraph{First subparagraph} test4.
-        \subsection{Second subsection}
-            \paragraph{段落} 中文测试。
-    \\
-    Hello World! \\ % This is comment
-    Hello \LaTeX ! \\
-
-    $\lim\limits_{n \rightarrow +\infty} P\lbrace\frac{\sum\limits_{i=1}{n}Xi - n\cdot EX}{ \sqrt{n \cdot DX} }  \leqslant x\rbrace = \Phi(x)$ \\
-
-    $P\lbrace a<X<b \rbrace \approx \Phi(\frac{b - n\cdot EX}{\sqrt {n\cdot DX}}) - \Phi(\frac{a - n\cdot EX}{\sqrt{n\cdot DX} })$ \\
-
-    $F(x,y) = F_{X}(x)F_{Y}(y)$
-    \end{document}
-    ```
+3. 在 latex 插件的配置中选择 xelatex 即可使用。
 
 ### Aria2GUI
 
 1. 下载并安装 [Aria2GUI](https://github.com/yangshun1029/aria2gui)。
-2. 下载 [BaiduExporter](https://github.com/acgotaku/BaiduExporter) 并安装 Chrome 扩展程序。
+2. 下载 [BaiduExporter](https://github.com/acgotaku/BaiduExporter) 并加载到 Chrome 扩展程序中。
 
 ### GitHub Pages
 
-1. 在 Atom 中安装插件 “Markdown Writer”。
-2. 安装 toolbar 插件辅助 Markdown 编辑。
-    1. Atom -> Install Shell Commands。
-    2. 然后执行 `apm install tool-bar markdown-writer` 来安装 `tool-bar` 和 `markdown-writer` packages。
-    3. 接着执行 `apm install tool-bar-markdown-writer`。
-3. 注意所使用的模板可能需要另外安装一些依赖。之后才能在本地运行 `jekyll serve`。
+1. 下载并安装 [Node.js](https://nodejs.org/en/)。
+2. 通过指令安装 hexo，可能需要 sudo。
+  `npm install -g hexo-cli`
+3. 下载对应的主题或已建立的博客项目。
+4. 如果没有配置 Git 的用户名、邮箱和设置 SSH，先按照相应步骤设置。
+
+>1. 在 Atom 中安装插件 “Markdown Writer”。
+>2. 安装 toolbar 插件辅助 Markdown 编辑。
+>    1. Atom -> Install Shell Commands。
+>    2. 然后执行 `apm install tool-bar markdown-writer` 来安装 `tool-bar` 和 `markdown-writer` packages。
+>    3. 接着执行 `apm install tool-bar-markdown-writer`。
+>3. 注意所使用的模板可能需要另外安装一些依赖。之后才能在本地运行 `jekyll serve`。
 
 
 ### Maven 及其配置
@@ -105,18 +79,21 @@ categories:
 
 ### 其他
 
-- 辅助工具
-  - Alfred 3 - Spotlight 的辅助工具
+#### 辅助工具
   - The Unarchiver / Archiver - 解压缩工具
   - FruitJuice - 电池管理小插件
   - iStatistica - 系统管理小插件
   - [CheatSheet](https://www.mediaatelier.com/CheatSheet/) - 快捷键显示插件
   - [AppCleaner](http://freemacsoft.net/appcleaner/) - 应用清理工具
 
-- 网络工具
+#### 网络工具
   - Tunnelblick / ShadowsocksX - VPN
   - [uTorrent](http://www.utorrent.com/intl/zh/) - 下载器
+  - [CyberDuck](https://cyberduck.io) - FTP 工具
 
-- 多媒体
+#### 多媒体
   - [IINA](https://lhc70000.github.io/iina/)（含 Safari 插件、Chrome 扩展程序） - 播放器
+
+#### 工作
   - [Typora](https://www.typora.io) - Markdown 编辑器
+  - [Atom](https://atom.io) - 文本编辑器

@@ -11,7 +11,11 @@ categories:
 [Regular Expression Matching - LeetCode](https://leetcode.com/problems/regular-expression-matching/description/)
 
 > Implement regular expression matching with support for `'.'` and `'*'`.
-```
+
+<!-- more -->
+
+
+>```
 '.' Matches any single character.
 '*' Matches zero or more of the preceding element.
 

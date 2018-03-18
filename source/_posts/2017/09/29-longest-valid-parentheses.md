@@ -10,6 +10,12 @@ categories:
 
 <a href="https://leetcode.com/problems/longest-valid-parentheses/">Longest Valid Parentheses - LeetCode</a>
 
+> Given a string containing just the characters `'('` and `')'`, find the length of the longest valid (well-formed) parentheses substring.
+For `"(()"`, the longest valid parentheses substring is `"()"`, which has length = 2.
+Another example is `")()())"`, where the longest valid parentheses substring is `"()()"`, which has length = 4.
+
+<!-- more -->
+
 这道题 LeetCode 标注的 tag 是动态规划。琢磨了很久还是想不出和动态规划有关的算法。于是趁机复习了一遍动态规划，并重温了几个经典的动态规划问题的例子：最长公共子序列（longest-common-subsequence problem），最长公共子串（longest-common-substring problem），钢条切割问题（rod-cutting problem）等。
 
 ## 1. 动态规划
