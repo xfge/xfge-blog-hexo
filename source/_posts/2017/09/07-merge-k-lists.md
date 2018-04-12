@@ -1,5 +1,5 @@
 ---
-title: "[LC21/23] Merge k Sorted Lists"
+title: "[LC21/23] Merge k Sorted Lists / 分治"
 date: 2017-09-07
 tags: [leetcode, 分治]
 categories:

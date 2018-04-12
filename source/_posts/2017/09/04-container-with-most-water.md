@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[LC11/19] Container With Most Water / 使用多个指针"
+title: "[LC11/19] Container With Most Water / 双指针"
 date: 2017-09-04
 tags: [leetcode, 双指针]
 categories:

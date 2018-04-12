@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[LC14] Longest Common Prefix"
+title: "[LC14] Longest Common Prefix / 二分查找 / 分治"
 date: 2017-09-05
 tags: [leetcode, 字符串, 二分查找, 分治]
 categories:
