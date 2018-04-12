@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[LC32] Longest Valid Parentheses / 动态规划"
-date: 2017-09-29
+date: 2017-10-29
 tags: [leetcode, 动态规划]
 categories:
   - CS
@@ -95,9 +95,7 @@ $$
 
 ### 问题描述
 > Given a string containing just the characters <code>'('</code> and <code>')'</code>, find the length of the longest valid (well-formed) parentheses substring.
-<br>
 For <code>"(()"</code>, the longest valid parentheses substring is <code>"()"</code>, which has length = 2.
-<br>
 Another example is <code>")()())"</code>, where the longest valid parentheses substring is <code>"()()"</code>, which has length = 4.
 
 
