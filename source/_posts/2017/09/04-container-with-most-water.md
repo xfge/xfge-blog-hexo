@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[LC11] Container With Most Water"
+title: "[LC11/19] Container With Most Water / 使用多个指针"
 date: 2017-09-04
 tags: [leetcode, 双指针]
 categories:
@@ -8,12 +8,17 @@ categories:
   - LeetCode
 ---
 
+本篇总结了两个使用「双指针」解决问题的方法。都达到了扫描一遍计算结果的效果，区别在于，一个是「相遇问题」，一个是「追及问题」。
+
+<!-- more -->
+
+# 11 Container With Most Water
+
 [Container With Most Water - LeetCode](https://leetcode.com/problems/container-with-most-water/description/)
 
 > Given n non-negative integers a1, a2, ..., an, where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of line i is at (i, ai) and (i, 0). Find two lines, which together with x-axis forms a container, such that the container contains the most water.
 Note: You may not slant the container and n is at least 2.
 
-<!-- more -->
 
 此问题用 Brute Force 方法的时间复杂度是 $O(n^2)$。
 
@@ -65,3 +70,14 @@ Note: You may not slant the container and n is at least 2.
 5 x x x x x |
 6 x x x x x x
 ```
+
+# 19 Remove Nth Node From End of List
+
+[Remove Nth Node From End of List - LeetCode](https://leetcode.com/problems/remove-nth-node-from-end-of-list)
+> Given a linked list, remove the nth node from the end of list and return its head.
+
+此题刚开始看到觉得好奇怪啊：扫描一遍无论如何也无法实现同时获得链表数目以及确定删除点。然后参考了讨论版的解答。
+
+一趟搜索的实现是：初始化两个指针 `fast` 和 `slow`，其中 `fast - slow = n`。这样，经过若干次「指针后移」操作后，当 `fast == null` 时， `slow` 指针指向的就是待删除的节点。
+
+由于题中说明 `n` 总是有效的，所以无需做额外的有效性检查。
