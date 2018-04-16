@@ -30,7 +30,7 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 
 ## 求解数组的所有排列
 
-### 递归方法实现
+### 递归方法
 
 以字符串 `abc` 为例，其所有排列（按字典序）是：
 - `abc`、`acb`
@@ -105,7 +105,7 @@ void Permutation(char* str){
 }
 ```
 
-### 非递归实现
+### 非递归方法
 
 非递归实现最为关键的一部分就是确定**下一个**排列数。基本思路是：先找到全排列中字典序最小的一个排列，然后找到字典序只比当前排列大的下一个排列，依次查找下去，直到没有新的排列大于当前排列。
 
@@ -156,3 +156,7 @@ public class Solution {
     }
 }
 ```
+
+## 参考阅读
+
+[这篇文章](https://votorye.github.io/2016/09/26/全排列非递归实现/) 说明了非递归实现的算法的正确性。
