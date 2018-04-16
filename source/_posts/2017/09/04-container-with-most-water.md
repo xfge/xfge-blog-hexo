@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[LC11/19] Container With Most Water / 双指针"
+title: "[LC11/19/27] Container With Most Water / 双指针"
 date: 2017-09-04
 tags: [leetcode, 双指针]
 categories:
@@ -81,3 +81,34 @@ Note: You may not slant the container and n is at least 2.
 一趟搜索的实现是：初始化两个指针 `fast` 和 `slow`，其中 `fast - slow = n`。这样，经过若干次「指针后移」操作后，当 `fast == null` 时， `slow` 指针指向的就是待删除的节点。
 
 由于题中说明 `n` 总是有效的，所以无需做额外的有效性检查。
+
+# 27 Remove Element
+
+[Remove Element - LeetCode](https://leetcode.com/problems/remove-element)
+
+题目略去。大意是：对于输入的一个数组，删去指定的数字，使返回的数组前 $n$ 位**包含**数组中出了删掉数字以外的其他所有数字，顺序可以改变。
+
+>Given nums = `[0,1,2,2,3,0,4,2]`, val = 2,
+Your function should return length = 5, with the first five elements of nums containing 0, 1, 3, 0, and 4.
+Note that the order of those five elements can be arbitrary.
+It doesn't matter what values are set beyond the returned length.
+
+使用双指针解决该问题时，一个直观的思路是：两个指针 `p` 和 `q` 从数组开头开始移动时，如果 `*q != target`，那么将其赋值到 `p` 所指位置。
+
+不过，利用题目中「顺序可以改变」的要求，可以对操作略作调整：`p` 指向数组开头，`q` 指向数组末尾，不断后移 `p`，如果 `*p == target` 就将 `*p` 与 `*q` 交换，并将 `q` 左移。
+
+```java
+public int removeElement(int[] nums, int val) {
+    int i = 0;
+    int n = nums.length;
+    while (i < n) {
+        if (nums[i] == val) {
+            nums[i] = nums[n - 1];
+            n--;
+        } else {
+            i++;
+        }
+    }
+    return n;
+}
+```
