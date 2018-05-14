@@ -1,5 +1,5 @@
 ---
-title: "[LC37] Sudoku Solver / 回溯"
+title: "[LC37/39/40] 用回溯算法解决问题"
 date: 2018-05-08
 tags: [leetcode, 回溯, 递归]
 categories:
@@ -7,11 +7,9 @@ categories:
   - LeetCode
 ---
 
-Sodoku Solver 使用回溯方法解决。本篇介绍一个通用的回溯方法框架。
+LeetCode 中一系列问题使用回溯方法解决。本篇介绍一个通用的回溯方法框架。
 
 <!-- more -->
-
-[Sudoku Solver - LeetCode](https://leetcode.com/problems/sudoku-solver/description/)
 
 ## 回溯算法
 
@@ -58,7 +56,9 @@ backtrack(int a[], int k, data input) {
 * `make_move(a, k, input)` and `unmake_move(a, k, input)` 前者将所采用的选择更新到原数据结构中，后者把这一选择从原数据结构中删除。
 
 
-## 本题解法
+## 37 Sudoku Solver
+
+[Sudoku Solver - LeetCode](https://leetcode.com/problems/sudoku-solver/description/)
 
 按照以上基本框架，替换相应的内容，下面给出的代码还有部分优化操作。在最初尝试解答此题的时候出现了错误，原因是没有在回溯方法中（调用方法本身一步后）清理使用空间。
 
@@ -107,8 +107,130 @@ board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) return false; //check 
 }
 ```
 
+## 39 Combination Sum
 
-## 回溯的经典应用
+### 题目描述
+
+[Combination Sum - LeetCode](https://leetcode.com/problems/combination-sum/)
+
+> Given a **set** of candidate numbers (`candidates`) (without duplicates) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sums to `target`.
+The **same** repeated number may be chosen from `candidates` unlimited number of times.
+**Note**:
+All numbers (including `target`) will be positive integers.
+The solution set must not contain duplicate combinations.
+**Example 1**:
+```
+Input: candidates = [2,3,6,7], target = 7,
+A solution set is:
+[
+  [7],
+  [2,2,3]
+]
+```
+>**Example 2**:
+```
+Input: candidates = [2,3,5], target = 8,
+A solution set is:
+[
+  [2,2,2,2],
+  [2,3,3],
+  [3,5]
+]
+```
+
+### 使用框架时进行优化
+
+如果不加修改地使用原来的框架，也能够解决问题，但效率太低。存在这样几个问题：
+* 如果不传入多余的参数，需要每次反复进行数组求和计算。巧妙的办法是：每次递归调用时，用 `target - candidates[i]` 作为参数，而不是不加处理地传入 `target`，可以省去很多计算操作。
+* 如果每次选取（本轮计算的） `candidates` 时都默认从所有原始的 `candidates` 中选取，则会出现 `[2, 2, 3]` 和 `[2, 3, 2]` 等其他同一组数的排列结果都会加入结果集合中。一个提升效率的方法是，**比 `candidate[i]` 小的数字**不再作为新一轮递归调用的 `candidates`。注意，这不会导致漏选。
+* 原先使用 HashSet 来消除 Solution List 中重复的数组，如果按上述第二条实现则无需考虑这一情况。
+
+以下的实现来自 [LeetCode 的讨论版块](https://leetcode.com/problems/combination-sum/discuss/16502)。
+
+```java
+public List<List<Integer>> combinationSum(int[] nums, int target) {
+    List<List<Integer>> list = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, target, 0);
+    return list;
+}
+
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+    if (remain < 0) return;
+    else if (remain == 0) list.add(new ArrayList<>(tempList));
+    else { 
+        for (int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, remain - nums[i], i); // not i + 1 because we can reuse same elements
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+}
+```
+
+## 40 Combination Sum II
+
+### 题目描述
+
+> Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sums to `target`.
+Each number in `candidates` may only be used **once** in the combination.
+**Note**:
+All numbers (including `target`) will be positive integers.
+The solution set must not contain duplicate combinations.
+**Example 1**:
+```
+Input: candidates = [10,1,2,7,6,1,5], target = 8,
+A solution set is:
+[
+  [1, 7],
+  [1, 2, 5],
+  [2, 6],
+  [1, 1, 6]
+]
+```
+>**Example 2**:
+```
+Input: candidates = [2,5,2,1,2], target = 5,
+A solution set is:
+[
+  [1,2,2],
+  [5]
+]
+```
+
+### 代码实现
+
+与 39 Combination Sum 类似，不再具体分析。不过有两个值得一提的注意点：
+* 为了避免由于 `candidates` 中某一个数重复从而重复输出同一结果，在某些情况下不执行回溯操作。注意，这不会导致 `[1, 1, 6]` 的漏解。
+* 注意 `backtrack()` 调用时参数的设置：`startIndex = i + 1`。
+
+```java
+public List<List<Integer>> combinationSum2(int[] nums, int target) {
+    List<List<Integer>> list = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, target, 0);
+    return list;
+    
+}
+
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+    if(remain < 0) return;
+    else if(remain == 0) list.add(new ArrayList<>(tempList));
+    else{
+        for(int i = start; i < nums.length; i++){
+            if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, remain - nums[i], i + 1);
+            tempList.remove(tempList.size() - 1); 
+        }
+    }
+} 
+```
+
+
+## 附：回溯的经典应用
+
+除了下面列出的几个经典应用，[这个博客](http://www.cnblogs.com/wuyuegb2312/p/3273337.html)还列举了几个其他应用：问题1：输出不重复数字的全排列、求解数独——剪枝的示范、给定字符串，生成其字母的全排列、求一个n元集合的k元子集、电话号码生成字符串、一摞烙饼的排序。
 
 ### 列出所有子集
 
