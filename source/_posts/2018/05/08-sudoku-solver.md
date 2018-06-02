@@ -1,5 +1,5 @@
 ---
-title: "[LC37/39/40] 用回溯算法解决问题"
+title: "[LC37/39/40/46-47] 用回溯算法解决问题"
 date: 2018-05-08
 tags: [leetcode, 回溯, 递归]
 categories:
@@ -227,10 +227,73 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 } 
 ```
 
+## 46 Permutations
+
+```java
+public List<List<Integer>> permute(int[] nums) {
+   List<List<Integer>> list = new ArrayList<>();
+   // Arrays.sort(nums); // not necessary
+   backtrack(list, new ArrayList<>(), nums);
+   return list;
+}
+
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums){
+   if(tempList.size() == nums.length){
+      list.add(new ArrayList<>(tempList));
+   } else{
+      for(int i = 0; i < nums.length; i++){ 
+         if(tempList.contains(nums[i])) continue; // element already exists, skip
+         tempList.add(nums[i]);
+         backtrack(list, tempList, nums);
+         tempList.remove(tempList.size() - 1);
+      }
+   }
+} 
+```
+
+## 46 Permutations with duplicates
+
+输出含有重复元素的全排列，不加处理地套用上一题的代码会得到：
+
+```
+[1, 1, 2]
+[1, 2, 1]
+[1, 1, 2]  x
+[1, 2, 1]  x
+[2, 1, 1]
+[2, 1, 1]  x
+```
+
+需要对生成全排列的树形结构进行剪枝。具体来说，该树结构第一层节点是 `1 / 1 / 2`，需要剪去中间的一个 `1`；此外还需要剪去第一层节点 `2` 的孩子节点中的第二个节点。可以发现需要剪枝的节点是：**位于 `nums` 数组中非首次出现的节点**，还需注意这些节点需要满足：**与它们相同的前序节点还未排列**。这就可以通过修改上述代码来完成：
+
+```java
+public List<List<Integer>> permuteUnique(int[] nums) {
+    List<List<Integer>> list = new ArrayList<>();
+    Arrays.sort(nums);
+    backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
+    return list;
+}
+
+private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, boolean [] used){
+    if(tempList.size() == nums.length){
+        list.add(new ArrayList<>(tempList));
+    } else{
+        for(int i = 0; i < nums.length; i++){
+            if(used[i] || i > 0 && nums[i] == nums[i-1] && !used[i - 1]) continue;
+            used[i] = true; 
+            tempList.add(nums[i]);
+            backtrack(list, tempList, nums, used);
+            used[i] = false; 
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+}
+```
+
 
 ## 附：回溯的经典应用
 
-除了下面列出的几个经典应用，[这个博客](http://www.cnblogs.com/wuyuegb2312/p/3273337.html)还列举了几个其他应用：问题1：输出不重复数字的全排列、求解数独——剪枝的示范、给定字符串，生成其字母的全排列、求一个n元集合的k元子集、电话号码生成字符串、一摞烙饼的排序。
+除了下面列出的几个经典应用，[这个博客](http://www.cnblogs.com/wuyuegb2312/p/3273337.html)还列举了几个其他应用：输出不重复数字的全排列、求解数独(剪枝的示范)、给定字符串生成其字母的全排列、求一个n元集合的k元子集、电话号码生成字符串、一摞烙饼的排序等。
 
 ### 列出所有子集
 
