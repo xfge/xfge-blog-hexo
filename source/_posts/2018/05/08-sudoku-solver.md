@@ -55,8 +55,17 @@ backtrack(int a[], int k, data input) {
 * `process_solution(a, k, input)` 对于符合条件的解进行处理，通常是输出、计数等。
 * `make_move(a, k, input)` and `unmake_move(a, k, input)` 前者将所采用的选择更新到原数据结构中，后者把这一选择从原数据结构中删除。
 
+### 结合实际优化框架
 
-## 37 Sudoku Solver
+上述框架对于理解回溯算法有很好的帮助。但在实际应用时，通常有很多优化控件。
+
+举例来说，在八皇后问题中，构造 candidates 时，根据 input 构造 candidates 时需要根据已有的皇后位置来确定下一行可能摆放的位置。这就需要传递皇后位置等参数。而实际上，这一步可以简化成：在循环进行时再考虑当前行的每一列**是否可以放置皇后**。这就避免了传参带来的低效。
+
+下面 Combination Sum 一节也说明了另一个类似情况。
+
+## 应用回溯算法解题
+
+### 37 Sudoku Solver
 
 [Sudoku Solver - LeetCode](https://leetcode.com/problems/sudoku-solver/description/)
 
@@ -107,9 +116,9 @@ board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) return false; //check 
 }
 ```
 
-## 39 Combination Sum
+### 39 Combination Sum
 
-### 题目描述
+#### 题目描述
 
 [Combination Sum - LeetCode](https://leetcode.com/problems/combination-sum/)
 
@@ -138,7 +147,7 @@ A solution set is:
 ]
 ```
 
-### 使用框架时进行优化
+#### 使用框架时进行优化
 
 如果不加修改地使用原来的框架，也能够解决问题，但效率太低。存在这样几个问题：
 * 如果不传入多余的参数，需要每次反复进行数组求和计算。巧妙的办法是：每次递归调用时，用 `target - candidates[i]` 作为参数，而不是不加处理地传入 `target`，可以省去很多计算操作。
@@ -168,9 +177,9 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 }
 ```
 
-## 40 Combination Sum II
+### 40 Combination Sum II
 
-### 题目描述
+#### 题目描述
 
 > Given a collection of candidate numbers (`candidates`) and a target number (`target`), find all unique combinations in `candidates` where the candidate numbers sums to `target`.
 Each number in `candidates` may only be used **once** in the combination.
@@ -198,7 +207,7 @@ A solution set is:
 ]
 ```
 
-### 代码实现
+#### 代码实现
 
 与 39 Combination Sum 类似，不再具体分析。不过有两个值得一提的注意点：
 * 为了避免由于 `candidates` 中某一个数重复从而重复输出同一结果，在某些情况下不执行回溯操作。注意，这不会导致 `[1, 1, 6]` 的漏解。
@@ -227,7 +236,7 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 } 
 ```
 
-## 46 Permutations
+### 46 Permutations
 
 ```java
 public List<List<Integer>> permute(int[] nums) {
@@ -251,7 +260,7 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 } 
 ```
 
-## 46 Permutations with duplicates
+### 46 Permutations with duplicates
 
 输出含有重复元素的全排列，不加处理地套用上一题的代码会得到：
 
@@ -291,7 +300,7 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 ```
 
 
-## 附：回溯的经典应用
+## 附：回溯的其他应用
 
 除了下面列出的几个经典应用，[这个博客](http://www.cnblogs.com/wuyuegb2312/p/3273337.html)还列举了几个其他应用：输出不重复数字的全排列、求解数独(剪枝的示范)、给定字符串生成其字母的全排列、求一个n元集合的k元子集、电话号码生成字符串、一摞烙饼的排序等。
 
