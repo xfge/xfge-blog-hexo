@@ -23,8 +23,19 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
 
 ## 动态规划 (Kadane's Algorithm)
 
-可以在线性时间内解决问题。在动态规划算法中如何定义递推关系式很重要。在本题中，定义 `dp[i]` 为 **以`nums[i]`为结尾的串的最大子数组之和**，在从 `0` 到 `i-1` 的遍历过程中只需要维护一个 `globalMax` 就可以在计算完成后得到 `nums` 的最大子数组之和。计算 `dp[i]` 时，没有必要依次比较 `0..i`，`1..i` ... 只需根据公式 `dp[i] = max(dp[i-1] + nums[i], nums[i])` 即可。注意，可以通过反证法证明该结论成立。
+可以在线性时间内解决问题。在动态规划算法中如何定义递推关系式很重要。在本题中，定义 `dp[i]` 为 **以`nums[i]`为结尾的串的最大子数组之和**，在从 `0` 到 `i-1` 的遍历过程中只需要维护一个 `globalMax` 就可以在计算完成后得到 `nums` 的最大子数组之和。计算 `dp[i]` 时，没有必要依次比较 `0..i`，`1..i` ... 只需根据公式 `dp[i] = max(dp[i-1] + nums[i], nums[i])` 计算即可。可以通过反证法证明该算法的正确性。
 
+```java
+    public int maxSubArray(int[] nums) {
+        int maxSum = nums[0];
+        int currentMaxSum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            currentMaxSum = ((currentMaxSum > 0) ? currentMaxSum : 0) + nums[i];
+            maxSum = Integer.max(currentMaxSum, maxSum);
+        }
+        return maxSum;
+    }
+```
 
 ## 分治
 
