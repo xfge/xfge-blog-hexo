@@ -1,7 +1,7 @@
 ---
 title: "[LC60/62] 用优化的方法替代回溯算法"
 date: 2018-07-27
-tags: [leetcode]
+tags: [leetcode, 回溯]
 categories:
   - CS
   - LeetCode
