@@ -467,7 +467,7 @@ Output: false
 Input: "9,#,#,1"
 Output: false
 
-## 使用栈不断收缩
+### 使用栈不断收缩
 
 <div align="center"><img src="{{ site.baseurl }}/images/2019/03/04-target-sum-dp1.png" width="40%"></div>
 
@@ -490,7 +490,7 @@ Output: false
     }
 ```
 
-## 另一种解法：出度和入度
+### 另一种解法：出度和入度
 
 如果将二叉树的边看做是从父节点到子节点的有向边，利用图论中「出度和入度」的定义，可知：
 * 非叶节点（非“#”节点）的出度为2，入度为1；

@@ -17,16 +17,16 @@ categories:
 
 Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
 
-**Example 2:**
+**Example:**
 ```
 Input: n = 13
 Output: 2
 Explanation: 13 = 4 + 9.
 ```
 
-## 解法
+# 解法
 
-### BFS
+## BFS
 
 这个我第二次遇到的时候已经想不起来的 BFS 确实很有意思。它将 `0..n` 作为树节点，将问题转化为求 `n` 到 `0` 的最短路径。而 BFS 的一类应用就是最短路径求解。以节点 `0` 为例，它的相邻边有 1, 4, 9, ... 当然，过大的节点我们实际是不需要考虑的。
 
@@ -57,7 +57,7 @@ public int numSquares(int n) {
 }
 ```
 
-### 动态规划
+## 动态规划
 
 动态规划的思路是：`dp[0..n]` 中的 `dp[i]` 表示平方数之和为 `i` 的最小数目。也即，从 `0` 遍历到 `n` 后，`dp[n]` 即为所求结果，在这一过程中，每个步骤需要计算 `dp[i]` 都需要借助已经计算好的数字。例如，计算 `dp[18]` 时，需要找到 `{dp[18 - 1], dp[18 - 4], dp[18 - 9], dp[18 - 16]}` 中的最小值。
 
