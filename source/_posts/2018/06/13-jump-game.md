@@ -28,8 +28,11 @@ Explanation: The minimum number of jumps to reach the last index is 2.
 
 ### 应用 BFS 算法
 
+TODO
+
 ### 贪心算法
 
+TODO
 
 
 ## 确定能否跳到最后一个元素

@@ -100,22 +100,23 @@ public class Solution {
     return -1;
     ```
 
+还有一种以上方法的修改版本：确定转折点后，确定 `target` 在转折点的左侧或右侧，只在一侧进行二分查找。
+
+
 # 34 Search for a Range
 
 [Search for a Range](https://leetcode.com/problems/search-for-a-range/description/)
 
->Given an array of integers sorted in ascending order, find the starting and ending position of a given target value.<br>
-Your algorithm's runtime complexity must be in the order of O(log n).<br>
+>Given an array of integers sorted in ascending order, find the starting and ending position of a given target value.
+Your algorithm's runtime complexity must be in the order of O(log n).
 If the target is not found in the array, return `[-1, -1]`.
-For example,<br>
-Given `[5, 7, 7, 8, 8, 10]` and target value 8,<br>
-return `[3, 4]`.
+For example, given `[5, 7, 7, 8, 8, 10]` and target value 8, return `[3, 4]`.
 
 ## 两次使用二分法和分类讨论
 
 为了求得一个起止范围，将起点和终点分别用一次二分法求出。
 
-以二分法求解「起始点」为例说明。初始化两个指针为`i = 0`和`j = n - 1`。每个迭代步骤计算中值`mid = (i+j)/2`，并比较`A[mid]`和`target`的大小：
+以二分法求解「起始点」为例说明。初始化两个指针为`i = 0`和`j = n - 1`。每个迭代步骤计算中值`mid = (i + j) / 2`，并比较`A[mid]`和`target`的大小：
 
 1. 如果`A[mid] < target`，那么所求范围的起始点必定在`mid`的 **右边**（下一个迭代步骤中`i = mid + 1`）；
 2. 如果`A[mid] > target`，那么所求范围的起始点必定在`mid`的 **左边**（`j = mid - 1`）；
@@ -125,7 +126,7 @@ return `[3, 4]`.
 
 - 如果`A[mid] >= target`，那么`j = mid`。
 
-将这些条件语句放到二分法的循环主体（`while(i < j)`）中，当循环结束时，`i`或`j`均指向 **所求范围的起始点**。**注意：在每一个迭代步骤，范围都进一步缩小**（而不能陷入死循环）。
+将这些条件语句放到二分法的循环主体 `while (i < j)` 中，当循环结束时，`i`或`j`均指向 **所求范围的起始点**。**注意：在每一个迭代步骤，范围都进一步缩小**（而不能陷入死循环）。
 
 为什么`i`或`j`均指向起始点？考虑以下几种情况（多次迭代后最终都将只剩两个元素，假设`target = 5`）：
 ```
@@ -146,19 +147,41 @@ case 7: [6 7] (target < A[i] < A[j])
 
 下面考虑「结束点」的求解。与上述过程类似，但方向相反。可以得出结论：
 
-1. 如果`A[mid] > target`，那么`j = mid-1`；
+1. 如果`A[mid] > target`，那么`j = mid - 1`；
 2. 如果`A[mid] <= target`，那么`i = mid`。
 
-然而，这引发了一个「死循环」错误，例如，当
+然而，这引发了一个「死循环」，例如，当 `[5 7], target = 5` 时，赋值语句`i = mid`不起作用，范围不再收缩。
 
+解决方法是微调 `mid` 的赋值语句（额外加1），使得每次计算中值 **往右取整**，即：`mid = (i + j) / 2 + 1`。这样，我们能够在每一次迭代时，进一步收缩范围（每次通过`i = mid`设置`i`的新值时都能 **使其改变**）。同样地，考虑计算「起始点」的过程，每次通过`j = mid`设置`j`的新值时，`j`必定发生变化使范围缩小。这就是为`mid`额外加1的目的。
+
+具体步骤及代码参考 [帖子](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/14699)。
+
+```c++
+vector<int> searchRange(int A[], int n, int target) {
+    int i = 0, j = n - 1;
+    vector<int> ret(2, -1);
+    // Search for the left one
+    while (i < j)
+    {
+        int mid = (i + j) /2;
+        if (A[mid] < target) i = mid + 1;
+        else j = mid;
+    }
+    if (A[i]!=target) return ret;
+    else ret[0] = i;
+    
+    // Search for the right one
+    j = n-1;  // We don't have to set i to 0 the second time.
+    while (i < j)
+    {
+        int mid = (i + j) /2 + 1;	// Make mid biased to the right
+        if (A[mid] > target) j = mid - 1;  
+        else i = mid;				// So that this won't make the search range stuck.
+    }
+    ret[1] = j;
+    return ret; 
+}
 ```
-[5 7], target = 5
-```
-
-时，赋值语句`i = mid`不起作用，范围不再收缩。
-
-解决方法是微调`mid`的赋值语句（额外加1），使得每次计算中值 **往右取整**，即：`mid = (i+j)/2+1`。这样，我们能够在每一次迭代时，进一步收缩范围（每次通过`i = mid`设置`i`的新值时都能 **使其改变**）。同样地，考虑计算「起始点」的过程，每次通过`j = mid`设置`j`的新值时，`j`必定发生变化使范围缩小。这就是为`mid`额外加1的目的。
-
 
 # 35 Search Insert Position
 
@@ -166,21 +189,24 @@ case 7: [6 7] (target < A[i] < A[j])
 
 很容易想到用二分法确定位置。值得一提的是编写（二分法）代码时有两个关键点需要注意，这在上面两个问题中也有讨论。
 
-1. 确定 `hi` 是 `nums.length` 还是 `nums.length - 1`。
-2. 由于`mid = (lo + hi) / 2`，因此 `low <= mid, mid < high`。于是，`lo = mid + 1` 使 `lo` 总能增加；`hi = mid` 使 `hi` 总能减少。
+1. 确定 `end` 是 `nums.length` 还是 `nums.length - 1`。
+2. 由于`mid = (beg + end) / 2`，因此 `beg <= mid, mid < end`。于是，`beg = mid + 1` 使 `beg` 总能增加；`end = mid` 使 `hi` 总能减少。（向左取整）
 
 ```java
 public int searchInsert(int[] nums, int target) {
-    int lo = 0, hi = nums.length;
-    while (lo < hi) {
-        int mid = (lo + hi) / 2;
-        if (nums[mid] < target) {
-            lo = mid + 1;
-        }
-        else {
-            hi = mid;
+    int n = nums.length;
+    int beg = 0, end = n - 1;
+    while (beg <= end) {
+        int mid = beg + (end - beg) / 2;
+        if (target == nums[mid]) return mid;
+        else if (target < nums[mid]) {
+            end = mid - 1;
+        } else {
+            beg = mid + 1;
         }
     }
-    return lo;
+    return beg;
 }
 ```
+
+上述算法将两种情况合并处理（不是通常的二分法）。其中修改了 while 语句的条件，并且 `target` 找到的情况直接返回。如果 `target` 不在序列中，则 `beg == end` 成立并且继续进入循环中，根据 `target` 与 `nums[beg]` 的大小情况减小 `end` 或增加 `beg`，在下一次退出循环，并返回原先的 `beg` 或增加 1 后的 `beg`。

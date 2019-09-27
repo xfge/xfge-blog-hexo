@@ -77,12 +77,12 @@ public boolean isMatch(String s, String p) {
 }
 ```
 
-悲伤的是，使用递归的代码效率通常有些低，只超过7.27%。
+使用递归的代码效率通常有些低，只超过 7.27%。
 
 
 ## 2. 递归：语句精炼之道
 
-LeetCode 提供的参考解答所提供的第一个方法就是递归。这里将其摘抄过来以说明其中简化了一些冗余的语句，使整体的代码风格更加整洁（neat）。学习目标！
+LeetCode 提供的参考解答所提供的第一个方法就是递归。相比于我的代码，其中简化了许多冗余的语句，代码逻辑更加简洁清晰，值得参考。
 
 ```java
 public boolean isMatch(String s, String p) {
@@ -99,15 +99,15 @@ public boolean isMatch(String s, String p) {
 }
 ```
 
-注意 `return (isMatch(s, p.substring(2)) || (first_match && isMatch(s.substring(1), p)));` 一句的判断省略的我写的代码中的很多语句。
+注意 `return (isMatch(s, p.substring(2)) || (first_match && isMatch(s.substring(1), p)));` 中「或」关系前后的两个递归判断综合计算了通配符 `'*'` 出现时用于于「0 次」与「多次」的两种情形。
 
-其思考依据是：当通配符 `'*'` 出现时，只能出现在 `p` 的第二个位置，我们考虑直接 **忽略这个部分，或者删掉（`s`中的）已匹配的1个字符**。经过这些操作，在`s`和`p`的剩余部分仍然匹配的（通过递归匹配），则认为原始字符串匹配。
+其依据是：通配符 `'*'` 只能出现在 `p` 的第二个位置，我们考虑直接 **忽略这个部分（代表前置字符出现 0 次），或者当 `s` 中第 1 个字符已匹配时递归地判断后面的**。`s` 和 `p` 的剩余部分仍然匹配的（递归匹配），则认为原始字符串匹配，比如 `'ba*'` 可以对应 `'b', 'ba', 'baa', ...`。
 
 ## 3. 动态规划
 
 ### 求解公式和表格
 
-理解了递归方法后，动态规划中的大部分逻辑也就随之得到了。但动态规划的极大优势就是能够在 $O(n^2)$ 的时间复杂度内解决问题；相比之下，递归方法的时间复杂度是 $O((T+P)2^{T+\frac{P}{2}})$（分析参考 [LeetCode 的解答](https://leetcode.com/problems/regular-expression-matching/solution/)）
+理解了递归方法后，动态规划中的大部分逻辑也就随之得到了。但动态规划的优势是能够在 $O(n^2)$ 的时间复杂度内解决问题；相比之下，递归方法的时间复杂度是 $O((T+P)2^{T+\frac{P}{2}})$（分析参考 [LeetCode 的解答](https://leetcode.com/problems/regular-expression-matching/solution/)）
 
 此问题的递归公式由一个二维表格求解。二维表格大小是`string.length + 1` $\times$ `pattern.length + 1`。其中第 $i$ 行第 $j$ 列表示的含义是：**`string[1..i]` 和 `pattern[1..j]` 是否匹配**。 求解公式是：
 
@@ -115,16 +115,16 @@ $$
 T[i][j] = \begin{cases}
 T[i-1][j-1] & \text{ if s[i] == p[j] or p[j] == '.'} \\\\
 T[i][j-2] & \text{ if p[j] == '\*'} \\\\
-T[i-1][j] & \text{ if p[j] == '\*' and s[i] == p[j-1] or p[j-1] == '.'} \\\\
+T[i-1][j] & \text{ if p[j] == '\*' and (s[i] == p[j-1] or p[j-1] == '.')} \\\\
 \text{false} & \text{ otherwise }
 \end{cases}
 $$
 
-下图是以 `s = "xaabyc"` 和 `p = "xa*b.c"` 例子所对应的DP表格。尝试在绘制表格的过程中总结出求解公式。
+下图是以 `s = "xaabyc"` 和 `p = "xa*b.c"` 例子所对应的 DP 表格。尝试在绘制表格的过程中总结出求解公式，思考计算每个值的时候如何根据已计算的值推算。
 
 <img src="/images/2017/10/regular-expression-matching-dp-table.png" width="40%">
 
-值得一提的是，表格中第0列均为False，但第0行是不一定均为False的，因为空串与`"a*b*"`也是匹配的！
+表格中第 0 列均为 False，但第 0 行是不一定均为 False 的，因为空串与`"a*b*"`也是匹配的！
 
 ### 代码实现
 
